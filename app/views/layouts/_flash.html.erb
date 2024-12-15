@@ -1,0 +1,6 @@
+<% flash.each do |flash_type, message| %>
+  <div class="flash__message" data-controller="removals" data-action="animationend->removals#remove">
+    <i class="bi bi-<%= flash_type == "notice" ? "check-circle" : "exclamation-circle" %> <%= flash_type %>"></i>
+    <%= message %>
+  </div>
+<% end %>

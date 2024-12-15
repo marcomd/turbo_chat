@@ -7,11 +7,13 @@
 // Configuration
 @import "config/variables";
 @import "config/reset";
+@import "config/animations";
 
 // Components
 @import "components/navbar";
 @import "components/session";
 @import "components/btn";
+@import "components/flash";
 
 // Layouts
 @import "layouts/container";
