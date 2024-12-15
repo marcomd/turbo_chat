@@ -1,24 +1,11 @@
-# README
+# Turbo chat
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Tutorial to create a ChatGPT clone with Rails 8.
 
-Things you may want to cover:
+In this first part the application is set up with the basic structure: 
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- authentication
+- basic models: user, chat and messages
+- rspec
+- a style with bootstrap
+- the service that interfaces the LLM models using ollama
