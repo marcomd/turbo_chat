@@ -56,3 +56,5 @@ group :development do
   gem "web-console"
 end
 
+
+gem "vite_rails", "~> 3.0"
