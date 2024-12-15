@@ -1,0 +1,26 @@
+.session {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: var(--space-xs);
+
+  &__inputs {
+    background-color: var(--color-white);
+    border: var(--main-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-l);
+
+    .form__group {
+      margin-bottom: var(--space-l);
+    }
+
+    h2 {
+      margin-bottom: var(--space-s);
+    }
+  }
+
+  &__shared-links {
+    padding: var(--space-s) 0;
+  }
+}

@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Chatty ⌨️</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <% if user_signed_in? %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/users"><%= t('activerecord.models.user.other') %></a>
+          </li>
+        </ul>
+
+        <div class="navbar-text ms-auto me-3">
+          <%= current_user.email %>
+        </div>
+        <%= button_to "Sign out",
+                      destroy_user_session_path,
+                      method: :delete,
+                      class: "btn btn--dark" %>
+      <% else %>
+        <div class="ms-auto">
+          <%= link_to "Sign in",
+                      new_user_session_path,
+                      class: "btn btn--dark navbar__right" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>

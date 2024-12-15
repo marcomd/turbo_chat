@@ -1,0 +1,65 @@
+.btn {
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:active {
+    transition: filter 250ms, color 200ms;
+  }
+
+  &--primary {
+    color: var(--color-white);
+    background-image: linear-gradient(to right, var(--color-primary), var(--color-primary-rotate));
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: var(--color-white);
+      filter: saturate(1.4) brightness(115%);
+    }
+  }
+
+  &--secondary {
+    color: var(--color-white);
+    background-image: linear-gradient(to right, var(--color-secondary), var(--color-secondary-rotate));
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: var(--color-white);
+      filter: saturate(1.2) brightness(110%);
+    }
+  }
+
+  &--light {
+    color: var(--color-dark);
+    background-color: var(--color-light);
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: var(--color-dark);
+      background-color: var(--color-light);
+      filter: brightness(92%);
+    }
+  }
+
+  &--dark {
+    color: var(--color-white);
+    border-color: var(--color-dark);
+    background-color: var(--color-dark);
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: var(--color-white);
+      background-color: var(--color-dark);
+      filter: brightness(150%);
+    }
+  }
+
+  // Modifiers will go there
+}
