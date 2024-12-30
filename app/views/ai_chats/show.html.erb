@@ -1,0 +1,7 @@
+<%= turbo_stream_from @ai_chat, "ai_messages" %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to list"), ai_chats_path %>
+
+  <%= render @ai_chat %>
+</main>

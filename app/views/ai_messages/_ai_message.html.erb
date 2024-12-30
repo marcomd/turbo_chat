@@ -1,0 +1,11 @@
+<div class="ai_chat--message">
+  <div class="ai_chat--message--row you">
+    <span class="ai_chat--avatar">You:</span>
+    <span class="ai_chat--text"><%= ai_message&.prompt %></span>
+  </div>
+
+  <div class="ai_chat--message--row ai">
+    <span class="ai_chat--avatar"><%= ai_chat.ai_model_name %>:</span>
+    <span class="ai_chat--text"><%= ai_message&.answer %></span>
+  </div>
+</div>

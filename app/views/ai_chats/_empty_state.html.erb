@@ -1,0 +1,10 @@
+<div class="empty-state empty-state--only-child">
+  <p class="empty-state__text">
+    You don't have any AI chat yet!
+  </p>
+
+  <%= link_to "Add ai chat",
+              new_ai_chat_path,
+              class: "btn btn--primary",
+              data: { turbo_frame: '_top' } %>
+</div>

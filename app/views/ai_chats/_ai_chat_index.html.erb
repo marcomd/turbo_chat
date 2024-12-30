@@ -1,0 +1,27 @@
+<%= turbo_frame_tag ai_chat do %>
+  <div class="ai_chat__index">
+    <div>
+      <%= link_to "##{ai_chat.id}",
+                  ai_chat_path(ai_chat),
+                  data: { turbo_frame: "_top" } %>
+      <b><%= ai_chat.ai_model_name %></b> ⇢
+    </div>
+
+    <div><%= ai_chat.title %></div>
+
+    <div class="ai_chat__actions">
+      <%= button_to ai_chat_path(ai_chat),
+                    method: :delete,
+                    form: { data: { turbo_frame: "_top", turbo_confirm: "Are you sure?" } },
+                    class: "btn btn--light" do %>
+        <i class="bi bi-trash"></i>
+      <% end %>
+
+      <%= link_to ai_chat_path(ai_chat),
+                  data: { turbo_frame: "_top" },
+                  class: "btn btn--light" do %>
+        <i class="bi bi-arrow-bar-right"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>

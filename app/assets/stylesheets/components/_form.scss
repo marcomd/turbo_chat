@@ -1,0 +1,42 @@
+.form {
+  &__group {
+    flex: 1;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-xxs) var(--space-xs);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: box-shadow 250ms;
+
+    &:focus {
+      box-shadow: 0 0 0 2px var(--color-glint);
+    }
+
+    &--invalid {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &__label {
+    color: var(--color-text-muted);
+  }
+
+  &__checkbox-label {
+    padding: 0 0.6rem;
+  }
+
+  &__hint {
+    flex-basis: 100%;
+    max-width: 100%;
+    color: var(--color-text-muted);
+    font-weight: normal;
+    font-size: var(--font-size-s);
+    margin-left: var(--space-s);
+    font-style: italic;
+  }
+}

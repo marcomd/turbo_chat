@@ -1,0 +1,18 @@
+<main class="container">
+  <div class="ai_chat__header">
+    <h1><%= t('activerecord.models.ai_chat.other') %></h1>
+    <%= link_to new_ai_chat_path,
+                class: "btn btn--primary",
+                data: { turbo_frame: '_top' } do %>
+      <i class="bi bi-plus-circle"></i>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "ai_chats" do %>
+    <%= render "ai_chats/empty_state" %>
+
+    <% @ai_chats.each do |ai_chat| %>
+      <%= render "ai_chats/ai_chat_index", ai_chat: %>
+    <% end %>
+  <% end %>
+</main>

@@ -1,0 +1,23 @@
+<form class="ai_chat--form"
+      action="<%= ai_chats_path %>"
+      <%= ai_chat.new_record? ? 'data-turbo-frame=_top' : '' %>
+      data-controller="generic-form" data-action="turbo:submit-end->generic-form#reset"
+      method="POST">
+
+  <div class="ai_chat--form-container">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+    <% if ai_chat.new_record? %>
+      <div class="form__group ai_chat--model-container">
+        <%= select_tag :ai_model_name, options_for_select(AiChat::SUPPORTED_AI_MODELS, nil), include_blank: "Select the AI model", class: 'form__input' %>
+      </div>
+    <% end %>
+
+    <div class="form__group ai_chat--prompt-container">
+      <% ai_model_name = " (#{ai_chat.ai_model_name})" if ai_chat.ai_model_name.present? %>
+      <%= text_area_tag :prompt, nil, placeholder: "Write here your question for AI#{ai_model_name}", class: "form__input", rows: 10, data: { controller: "submit-on-enter" } %>
+    </div>
+
+    <%= submit_tag "Ask", class: "btn btn--primary" %>
+  </div>
+</form>

@@ -1,0 +1,86 @@
+.ai_chat {
+  &__index {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-s);
+
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-small);
+    margin-bottom: var(--space-m);
+    padding: var(--space-xs);
+
+    @include media(tabletAndUp) {
+      padding: var(--space-xs) var(--space-m);
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    justify-content: space-between;
+    margin-top: var(--space-m);
+    margin-bottom: var(--space-l);
+
+    @include media(tabletAndUp) {
+      margin-bottom: var(--space-xl);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: flex-start;
+    gap: var(--space-xs);
+  }
+
+  &--form {
+    padding: var(--space-s) 0;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-m);
+
+    .row {
+      margin-bottom: 1rem;
+    }
+
+    &__actions {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &--form-container {
+    & .form__group, & .btn {
+      margin-top: var(--space-s);
+    }
+  }
+
+  &__container {
+    padding: 1rem 0;
+  }
+
+  &--messages {
+    margin-top: var(--space-xl);
+  }
+
+  &--message {
+    &--row {
+      margin-top: var(--space-s);
+      padding: var(--space-s);
+      border-radius: var(--border-radius);
+
+      &.you {
+        background-color: var(--color-background-darkest);
+      }
+      &.ai {
+        background-color: var(--color-background-dark);
+      }
+    }
+  }
+
+  &--avatar {
+    font-weight: bold;
+  }
+}

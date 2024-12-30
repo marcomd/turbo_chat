@@ -9,8 +9,9 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <% if user_signed_in? %>
         <ul class="navbar-nav">
+          <!-- Add navigation items here -->
           <li class="nav-item">
-            <a class="nav-link" href="/users"><%= t('activerecord.models.user.other') %></a>
+            <a class="nav-link" href="/ai"><%= t('activerecord.models.user.ai_chats') %></a>
           </li>
         </ul>
 
