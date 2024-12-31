@@ -1,5 +1,5 @@
 <form class="ai_chat--form"
-      action="<%= ai_chats_path %>"
+      action="<%= ai_chat.new_record? ? ai_chats_path : ask_ai_chat_path(ai_chat) %>"
       <%= ai_chat.new_record? ? 'data-turbo-frame=_top' : '' %>
       data-controller="generic-form" data-action="turbo:submit-end->generic-form#reset"
       method="POST">

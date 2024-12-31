@@ -1,0 +1,11 @@
+<div id="ai_chat__spinner" class="text-center py-1">
+  <div class="spinner-grow spinner-grow-sm" role="status"></div>
+
+  <% if local_assigns[:message] %>
+    <div role="status"><%= message %></div>
+  <% else %>
+    <div class="spinner-grow spinner-grow-sm" role="status"></div>
+  <% end %>
+
+  <div class="spinner-grow spinner-grow-sm" role="status"></div>
+</div>

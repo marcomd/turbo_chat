@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import RemovalsController from "./removals_controller"
 application.register("removals", RemovalsController)
+
+import GenericFormController from "./generic_form_controller"
+application.register("generic-form", GenericFormController)

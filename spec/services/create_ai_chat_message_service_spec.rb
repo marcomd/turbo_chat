@@ -53,6 +53,13 @@ describe CreateAiChatMessageService, type: :service do
     it 'does NOT create a new AiChat' do
       expect { service.call }.to_not change { AiChat.count }
     end
+
+    it 'calls action cable broadcasting' do
+      expect(service).to receive(:show_spinner).with(message: prompt).ordered
+      expect(service).to receive(:remove_spinner).ordered
+      expect(service).to receive(:add_ai_message).with(ai_message: an_instance_of(AiMessage)).ordered
+      service.call
+    end
   end
 
   context 'when ai_chat_id is NOT provided' do
@@ -93,6 +100,40 @@ describe CreateAiChatMessageService, type: :service do
     it 'adds an error for ai_chat not found' do
       service.call
       expect(service.errors[:ai_chat]).to include('not found')
+    end
+  end
+
+  describe '#show_spinner' do
+    let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
+
+    it 'broadcasts the spinner to the client' do
+      expect(Turbo::StreamsChannel).to receive(:broadcast_after_to).with([ai_chat, 'ai_messages'],
+                                                                        target: "ai_chat_#{ai_chat.id}_messages",
+                                                                        partial: 'ai_chats/spinner',
+                                                                        locals: { message: prompt })
+      service.send(:show_spinner, message: prompt)
+    end
+  end
+
+  describe '#remove_spinner' do
+    let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
+
+    it 'removes the spinner from the client' do
+      expect(Turbo::StreamsChannel).to receive(:broadcast_remove_to).with([ai_chat, 'ai_messages'], target: 'ai_chat__spinner')
+      service.send(:remove_spinner)
+    end
+  end
+
+  describe '#add_ai_message' do
+    let(:ai_message) { create(:ai_message, ai_chat:) }
+    let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
+
+    it 'broadcasts the new AI message to the client' do
+      expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with([ai_chat, 'ai_messages'],
+                                                                         target: "ai_chat_#{ai_chat.id}_messages",
+                                                                         partial: 'ai_messages/ai_message',
+                                                                         locals: { ai_chat: ai_chat, ai_message: })
+      service.send(:add_ai_message, ai_message: ai_message)
     end
   end
 end

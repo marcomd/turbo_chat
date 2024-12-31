@@ -18,6 +18,7 @@
 #   updated_at: "2024-12-06 18:34:36.198933000 +0000">
 class CreateAiChatMessageService
   prepend SimpleCommand
+  include AiChats::Messageable
 
   DEFAULT_MODEL_NAME = "llama3.2"
 
@@ -50,9 +51,15 @@ class CreateAiChatMessageService
       return
     end
 
+    show_spinner(message: prompt)
+
     llm_response = llm.chat(messages:)
 
+    remove_spinner
+
     ai_message = ai_chat.ai_messages.create(prompt:, answer: llm_response.chat_completion)
+
+    add_ai_message(ai_message:)
 
     ai_message
   rescue StandardError
