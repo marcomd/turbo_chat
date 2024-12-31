@@ -1,4 +1,4 @@
-<div class="ai_chat--message">
+<div class="ai_chat--message <%= local_assigns[:is_new] ? 'new' : '' %>">
   <div class="ai_chat--message--row you">
     <span class="ai_chat--avatar">You:</span>
     <span class="ai_chat--text"><%= ai_message&.prompt %></span>

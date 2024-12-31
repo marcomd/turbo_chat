@@ -66,6 +66,10 @@
   }
 
   &--message {
+    &.new {
+      animation: popup 0.4s;
+    }
+
     &--row {
       margin-top: var(--space-s);
       padding: var(--space-s);
