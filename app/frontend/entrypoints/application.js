@@ -27,4 +27,5 @@ console.log('Vite ⚡️ Rails')
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
+import "@hotwired/turbo-rails"
 import "../controllers"
