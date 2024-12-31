@@ -42,7 +42,7 @@ RSpec.describe "AiChats", type: :request do
 
         it 'assigns an array to @ai_chats' do
           action.call
-          expect(assigns(:ai_chats)).to eq([ai_chat])
+          expect(assigns(:ai_chats)).to eq([ ai_chat ])
         end
       end
     end

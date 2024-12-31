@@ -107,7 +107,7 @@ describe CreateAiChatMessageService, type: :service do
     let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
 
     it 'broadcasts the spinner to the client' do
-      expect(Turbo::StreamsChannel).to receive(:broadcast_after_to).with([ai_chat, 'ai_messages'],
+      expect(Turbo::StreamsChannel).to receive(:broadcast_after_to).with([ ai_chat, 'ai_messages' ],
                                                                         target: "ai_chat_#{ai_chat.id}_messages",
                                                                         partial: 'ai_chats/spinner',
                                                                         locals: { message: prompt })
@@ -119,7 +119,7 @@ describe CreateAiChatMessageService, type: :service do
     let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
 
     it 'removes the spinner from the client' do
-      expect(Turbo::StreamsChannel).to receive(:broadcast_remove_to).with([ai_chat, 'ai_messages'], target: 'ai_chat__spinner')
+      expect(Turbo::StreamsChannel).to receive(:broadcast_remove_to).with([ ai_chat, 'ai_messages' ], target: 'ai_chat__spinner')
       service.send(:remove_spinner)
     end
   end
@@ -129,7 +129,7 @@ describe CreateAiChatMessageService, type: :service do
     let(:parameters) { { prompt:, ai_chat_id: ai_chat.id } }
 
     it 'broadcasts the new AI message to the client' do
-      expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with([ai_chat, 'ai_messages'],
+      expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with([ ai_chat, 'ai_messages' ],
                                                                          target: "ai_chat_#{ai_chat.id}_messages",
                                                                          partial: 'ai_messages/ai_message',
                                                                          locals: { ai_chat: ai_chat, ai_message: })
