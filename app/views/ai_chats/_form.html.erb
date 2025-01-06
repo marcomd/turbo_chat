@@ -15,7 +15,7 @@
 
     <div class="form__group ai_chat--prompt-container">
       <% ai_model_name = " (#{ai_chat.ai_model_name})" if ai_chat.ai_model_name.present? %>
-      <%= text_area_tag :prompt, nil, placeholder: "Write here your question for AI#{ai_model_name}", class: "form__input", rows: 10, data: { controller: "submit-on-enter" } %>
+      <%= text_area_tag :prompt, nil, placeholder: "Write here your question for AI#{ai_model_name}", class: "form__input", rows: 10 %>
     </div>
 
     <%= submit_tag "Ask", class: "btn btn--primary" %>
