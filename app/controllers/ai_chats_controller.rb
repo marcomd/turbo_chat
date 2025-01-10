@@ -1,5 +1,5 @@
 class AiChatsController < PrivateController
-  before_action :set_ai_chat, only: [ :show, :ask ]
+  before_action :set_ai_chat, only: [ :show, :ask, :destroy ]
 
   # GET /ai
   def index
@@ -41,6 +41,19 @@ class AiChatsController < PrivateController
     return if ask_params[:prompt].blank?
 
     CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ask_params[:prompt], @ai_chat.id)
+  end
+
+  # DELETE /ai_chats/:id
+  def destroy
+    @ai_chat.destroy!
+
+    message = "AI chat `#{@ai_chat.title}` was successfully destroyed."
+
+    respond_to do |format|
+      format.html { redirect_to(ai_chat_url, notice: message) }
+      format.turbo_stream { flash.now[:notice] = message }
+      format.json { head(:no_content) }
+    end
   end
 
   private

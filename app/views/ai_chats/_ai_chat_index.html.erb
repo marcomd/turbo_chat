@@ -1,5 +1,5 @@
 <%= turbo_frame_tag ai_chat do %>
-  <div class="ai_chat__index">
+  <div id="ai_chat__index_<%= ai_chat.id %>" class="ai_chat__index">
     <div>
       <%= link_to "##{ai_chat.id}",
                   ai_chat_path(ai_chat),

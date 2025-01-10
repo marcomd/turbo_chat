@@ -1,0 +1,10 @@
+<%= turbo_stream.append "ai_chat_#{@ai_chat.id}" do %>
+  <%= javascript_tag do %>
+    document.getElementById("ai_chat__index_<%= @ai_chat.id %>").classList.add("remove");
+    document.getElementById("ai_chat__index_<%= @ai_chat.id %>").addEventListener("animationend", () => {
+    document.getElementById("ai_chat_<%= @ai_chat.id %>").remove();
+    });
+  <% end %>
+<% end %>
+
+<%= render_turbo_stream_flash_messages %>

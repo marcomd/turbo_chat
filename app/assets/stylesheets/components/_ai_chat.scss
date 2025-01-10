@@ -11,6 +11,10 @@
     margin-bottom: var(--space-m);
     padding: var(--space-xs);
 
+    &.remove {
+      animation: popout ease 0.4s;
+    }
+
     @include media(tabletAndUp) {
       padding: var(--space-xs) var(--space-m);
     }
