@@ -15,6 +15,11 @@ module AiMessagesHelper
   # Returns the data properties for the message element
   # @return [Hash]
   def bootstrap_data_properties
-    {} # Leave it blank for now
+    {
+      controller: "bootstrap",
+      "bs-toggle": "tooltip",
+      "bs-delay": '{ "show": 500, "hide": 100 }',
+      action: "click->bootstrap#remove"
+    }
   end
 end

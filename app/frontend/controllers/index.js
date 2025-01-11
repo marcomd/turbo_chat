@@ -9,3 +9,6 @@ application.register("removals", RemovalsController)
 
 import GenericFormController from "./generic_form_controller"
 application.register("generic-form", GenericFormController)
+
+import BootstrapController from "./bootstrap_controller"
+application.register("bootstrap", BootstrapController)
