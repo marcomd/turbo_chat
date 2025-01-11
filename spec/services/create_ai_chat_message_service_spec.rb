@@ -5,6 +5,7 @@ describe CreateAiChatMessageService, type: :service do
   let(:ai_chat) { create(:ai_chat, user:) }
   let(:prompt) { 'Hello!' }
   let(:service) { described_class.new(**parameters) }
+  let(:valid_parameters) { { prompt:, ai_chat_id: ai_chat.id } }
 
   # ---- Stubbing the external service ----
   let(:llm) { double }
@@ -116,9 +117,9 @@ describe CreateAiChatMessageService, type: :service do
 
     it 'broadcasts the spinner to the client' do
       expect(Turbo::StreamsChannel).to receive(:broadcast_after_to).with([ ai_chat, 'ai_messages' ],
-                                                                        target: "ai_chat_#{ai_chat.id}_messages",
-                                                                        partial: 'ai_chats/spinner',
-                                                                        locals: { message: prompt })
+                                                                          target: "ai_chat_#{ai_chat.id}_messages",
+                                                                          partial: 'ai_chats/spinner',
+                                                                          locals: { message: prompt })
       service.send(:show_spinner, message: prompt)
     end
   end
@@ -138,10 +139,26 @@ describe CreateAiChatMessageService, type: :service do
 
     it 'broadcasts the new AI message to the client' do
       expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with([ ai_chat, 'ai_messages' ],
-                                                                         target: "ai_chat_#{ai_chat.id}_messages",
-                                                                         partial: 'ai_messages/ai_message',
-                                                                         locals: { ai_chat: ai_chat, ai_message:, is_new: true })
+                                                                          target: "ai_chat_#{ai_chat.id}_messages",
+                                                                          partial: 'ai_messages/ai_message',
+                                                                          locals: { ai_chat: ai_chat, ai_message:, is_new: true })
       service.send(:add_ai_message, ai_message: ai_message)
+    end
+  end
+
+  context 'when the llm raise an error' do
+    let(:parameters) { valid_parameters }
+    let(:error_message) { 'An error occurred' }
+
+    before do
+      allow(llm).to receive(:chat).and_raise(StandardError.new(error_message))
+    end
+
+    it_behaves_like 'a service that fails'
+
+    it 'notify the error' do
+      expect(service).to receive(:notify_error).with(message: error_message)
+      service.call
     end
   end
 end

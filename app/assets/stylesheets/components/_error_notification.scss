@@ -1,0 +1,28 @@
+.error_notification {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  justify-content: center;
+
+  &__message {
+    font-size: var(--font-size-s);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-m);
+    background-color: var(--color-dark);
+    animation: popup 0.4s;
+    border-radius: 999px;
+    width: max-content;
+  }
+
+  a {
+    color: var(--color-text-notification);
+    text-decoration: dotted underline;
+    transition: color 200ms;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: inherit;
+    }
+  }
+}

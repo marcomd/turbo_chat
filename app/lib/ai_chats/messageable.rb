@@ -32,10 +32,14 @@ module AiChats
     # The turbo frame to update "ai_message_#{ai_message.id}_answer"
     def update_ai_message_answer(ai_message_id:, answer_chunk:)
       # We don't have a partial this time but only the answer chunk
-      Turbo::StreamsChannel.broadcast_append_to([ai_chat, 'ai_messages'],
+      Turbo::StreamsChannel.broadcast_append_to([ ai_chat, "ai_messages" ],
                                                 target: "ai_message_#{ai_message_id}_answer",
                                                 content: answer_chunk)
+    end
 
+    # It sends an error message to the client, to be shown in the user notification area
+    def notify_error(message:)
+      Turbo::StreamsChannel.broadcast_replace_to([ ai_chat.user, "notifications" ], target: "ai_chat_#{ai_chat&.id || ai_chat_id}_notification", partial: "layouts/error_notification", locals: { message: })
     end
   end
 end
