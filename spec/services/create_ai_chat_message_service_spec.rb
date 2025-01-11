@@ -7,14 +7,22 @@ describe CreateAiChatMessageService, type: :service do
   let(:service) { described_class.new(**parameters) }
 
   # ---- Stubbing the external service ----
-  let(:llm) { double(chat: llm_response) }
-  let(:llm_response) { double(chat_completion: stubbed_answer) }
+  let(:llm) { double }
   let(:stubbed_answer) { 'This is a stubbed answer' }
   # ---------------------------------------
 
   before do
     # Stub the call to the external service to create the llm instance w/o actually calling it
     allow(service).to receive(:llm).and_return(llm)
+
+    # Stub the chat method to yield multiple stubbed answers
+    chat_stub = allow(llm).to receive(:chat)
+
+    stubbed_answer.split.each.with_index do |chunk, i|
+      chat_completion = i == 0 ? chunk : " #{chunk}"
+      # We are stubbing this block -> llm.chat(messages:) do |response_chunk|
+      chat_stub.and_yield(double(chat_completion:))
+    end
   end
 
   shared_examples 'a service that fails' do
@@ -55,7 +63,7 @@ describe CreateAiChatMessageService, type: :service do
     end
 
     it 'calls action cable broadcasting' do
-      expect(service).to receive(:show_spinner).with(message: prompt).ordered
+      expect(service).to receive(:show_spinner).ordered
       expect(service).to receive(:remove_spinner).ordered
       expect(service).to receive(:add_ai_message).with(ai_message: an_instance_of(AiMessage)).ordered
       service.call

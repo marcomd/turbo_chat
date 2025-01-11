@@ -27,5 +27,15 @@ module AiChats
                                                 partial: "ai_messages/ai_message",
                                                 locals: { ai_chat: ai_chat, ai_message:, is_new: true })
     end
+
+    # It updates the AI message answer with the given chunk
+    # The turbo frame to update "ai_message_#{ai_message.id}_answer"
+    def update_ai_message_answer(ai_message_id:, answer_chunk:)
+      # We don't have a partial this time but only the answer chunk
+      Turbo::StreamsChannel.broadcast_append_to([ai_chat, 'ai_messages'],
+                                                target: "ai_message_#{ai_message_id}_answer",
+                                                content: answer_chunk)
+
+    end
   end
 end

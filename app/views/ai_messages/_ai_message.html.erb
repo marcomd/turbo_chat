@@ -1,4 +1,4 @@
-<div class="ai_chat--message <%= local_assigns[:is_new] ? 'new' : '' %>">
+<div id="ai_chat--message_<%= ai_message.id %>" class="ai_chat--message <%= local_assigns[:is_new] ? 'new' : '' %>">
   <div class="ai_chat--message--row you">
     <span class="ai_chat--avatar">You:</span>
     <span class="ai_chat--text"><%= ai_message&.prompt %></span>
@@ -6,6 +6,11 @@
 
   <div class="ai_chat--message--row ai">
     <span class="ai_chat--avatar"><%= ai_chat.ai_model_name %>:</span>
-    <span class="ai_chat--text"><%= ai_message&.answer %></span>
+    <span class="ai_chat--text">
+      <!-- This section below can be updated from the data stream-->
+      <%= turbo_frame_tag "ai_message_#{ai_message.id}_answer" do %>
+        <%= ai_message&.answer %>
+      <% end %>
+    </span>
   </div>
 </div>

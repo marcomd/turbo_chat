@@ -51,15 +51,24 @@ class CreateAiChatMessageService
       return
     end
 
-    show_spinner(message: prompt)
+    show_spinner
+    ai_message = nil
+    answer_chunks = []
 
-    llm_response = llm.chat(messages:)
+    llm.chat(messages:) do |response_chunk|
+      unless ai_message
+        remove_spinner
+        ai_message = ai_chat.ai_messages.create!(prompt:, answer: "")
+        add_ai_message(ai_message:)
+      end
 
-    remove_spinner
+      answer_chunk = response_chunk.chat_completion
+      answer_chunks << answer_chunk
+      update_ai_message_answer(ai_message_id: ai_message.id, answer_chunk:)
+      sleep 0.01 # Higher values -> slower writing
+    end
 
-    ai_message = ai_chat.ai_messages.create(prompt:, answer: llm_response.chat_completion)
-
-    add_ai_message(ai_message:)
+    ai_message.update(answer: answer_chunks.join)
 
     ai_message
   rescue StandardError
