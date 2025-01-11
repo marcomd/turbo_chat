@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "ai_chat--message_#{@ai_message.id}", partial: "ai_messages/ai_message", locals: { ai_chat: @ai_chat, ai_message: @ai_message } %>
+
+<%= render_turbo_stream_flash_messages %>

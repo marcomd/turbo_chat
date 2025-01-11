@@ -120,7 +120,7 @@ class CreateAiChatMessageService
 
     @messages ||=
       begin
-        ai_chat.ai_messages.flat_map do |ai_message|
+        ai_chat.ai_messages.in_context.flat_map do |ai_message|
           [
             { role: "user", content: ai_message.prompt },
             { role: "assistant", content: ai_message.answer }

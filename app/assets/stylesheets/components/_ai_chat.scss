@@ -74,6 +74,33 @@
       animation: popup 0.4s;
     }
 
+    &.excluded {
+      opacity: 0.3;
+      text-decoration: line-through;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &.remove {
+      animation: popout ease 0.4s;
+    }
+
+    &--actions {
+      display: flex;
+      gap: var(--space-xs);
+      margin-left: var(--space-m);
+      opacity: 0;
+      transition: opacity 0.2s;
+      position: absolute;
+      margin-left: 10%;
+    }
+
+    &:hover &--actions {
+      opacity: 1;
+    }
+
     &--row {
       margin-top: var(--space-s);
       padding: var(--space-s);
@@ -90,5 +117,6 @@
 
   &--avatar {
     font-weight: bold;
+    display: flex;
   }
 }

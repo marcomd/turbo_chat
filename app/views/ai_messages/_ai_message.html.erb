@@ -1,16 +1,49 @@
-<div id="ai_chat--message_<%= ai_message.id %>" class="ai_chat--message <%= local_assigns[:is_new] ? 'new' : '' %>">
+<% message_css_classes = build_message_css_classes(local_assigns:, ai_message:) %>
+
+<div id="ai_chat--message_<%= ai_message.id %>" class="ai_chat--message<%= message_css_classes %> ">
   <div class="ai_chat--message--row you">
-    <span class="ai_chat--avatar">You:</span>
-    <span class="ai_chat--text"><%= ai_message&.prompt %></span>
+    <div class="ai_chat--avatar">
+      <span>You:</span>
+
+      <div class="ai_chat--message--actions">
+        <% if ai_message.excluded? %>
+          <%= button_to restore_ai_chat_ai_message_path(ai_chat, ai_message),
+                        method: :patch,
+                        class: "btn btn--dark btn-sm",
+                        title: "Restore message",
+                        data: bootstrap_data_properties do %>
+            <i class="bi bi-arrow-counterclockwise"></i>
+          <% end %>
+
+          <%= button_to ai_chat_ai_message_path(ai_chat, ai_message),
+                        method: :delete,
+                        class: "btn btn--dark btn-sm",
+                        title: "Delete message permanently",
+                        data: bootstrap_data_properties,
+                        form: { data: { turbo_confirm: "Permanently delete this message?" } } do %>
+            <i class="bi bi-trash"></i>
+          <% end %>
+        <% else %>
+          <%= button_to exclude_ai_chat_ai_message_path(ai_chat, ai_message),
+                        method: :patch,
+                        class: "btn btn--dark btn-sm",
+                        title: "Exclude message from the context",
+                        data: bootstrap_data_properties do %>
+            <i class="bi bi-eye-slash"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="ai_chat--text"><%= ai_message&.prompt %></div>
   </div>
 
   <div class="ai_chat--message--row ai">
-    <span class="ai_chat--avatar"><%= ai_chat.ai_model_name %>:</span>
-    <span class="ai_chat--text">
+    <div class="ai_chat--avatar"><%= ai_chat.ai_model_name %>:</div>
+    <div class="ai_chat--text">
       <!-- This section below can be updated from the data stream-->
       <%= turbo_frame_tag "ai_message_#{ai_message.id}_answer" do %>
         <%= markdown(ai_message&.answer) %>
       <% end %>
-    </span>
+    </div>
   </div>
 </div>

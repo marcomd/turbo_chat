@@ -2,6 +2,7 @@
 
 class AiMessagesController < PrivateController
   before_action :set_ai_chat
+  before_action :set_ai_message, except: [ :create ]
 
   # POST /ai/:ai_chat_id/ai_messages
   def create
@@ -23,10 +24,47 @@ class AiMessagesController < PrivateController
     end
   end
 
+  # PATCH /ai/:ai_chat_id/messages/:id/exclude
+  def exclude
+    @ai_message.update!(excluded: true)
+
+    respond_to do |format|
+      message = "Message hidden"
+      format.html { redirect_to @ai_chat, notice: message }
+      format.turbo_stream { flash.now[:notice] = message }
+    end
+  end
+
+  # PATCH /ai/:ai_chat_id/messages/:id/restore
+  def restore
+    @ai_message.update!(excluded: false)
+
+    respond_to do |format|
+      message = "Message restored"
+      format.html { redirect_to @ai_chat, notice: message }
+      format.turbo_stream { flash.now[:notice] = message }
+    end
+  end
+
+  # DELETE /ai/:ai_chat_id/messages/:id
+  def destroy
+    @ai_message.destroy!
+
+    respond_to do |format|
+      message = "Message deleted permanently!"
+      format.html { redirect_to @ai_chat, notice: message }
+      format.turbo_stream { flash.now[:notice] = message }
+    end
+  end
+
   private
 
   def set_ai_chat
     @ai_chat = current_user.ai_chats.find(params[:ai_chat_id])
+  end
+
+  def set_ai_message
+    @ai_message = @ai_chat.ai_messages.find(params[:id])
   end
 
   def ai_message_params

@@ -46,4 +46,64 @@ RSpec.describe "AiMessages", type: :request do
       end
     end
   end
+
+  describe "PATCH /exclude" do
+    let(:action) { -> { patch "/ai/#{ai_chat.id}/messages/#{ai_message.id}/exclude" } }
+
+    it_behaves_like 'a not logged user'
+
+    context 'when user is logged in' do
+      before do
+        login_as user
+      end
+
+      it 'hides the message' do
+        expect do
+          action.call
+        end.to change { ai_message.reload.excluded }.from(false).to(true)
+      end
+    end
+  end
+
+  describe "PATCH /restore" do
+    let(:action) { -> { patch "/ai/#{ai_chat.id}/messages/#{ai_message.id}/restore" } }
+
+    before do
+      ai_message.update_columns(excluded: true) # We use update_columns to avoid callbacks
+    end
+
+    it_behaves_like 'a not logged user'
+
+    context 'when user is logged in' do
+      before do
+        login_as user
+      end
+
+      it 'restores the message' do
+        expect do
+          action.call
+        end.to change { ai_message.reload.excluded }.from(true).to(false)
+      end
+    end
+  end
+
+  describe "DELETE /destroy" do
+    let(:action) { -> { delete "/ai/#{ai_chat.id}/messages/#{ai_message.id}" } }
+
+    it_behaves_like 'a not logged user'
+
+    context 'when user is logged in' do
+      before do
+        login_as user
+      end
+
+      it 'deletes the message' do
+        ai_message # Create the message
+
+        expect do
+          action.call
+        end.to change { AiMessage.count }.by(-1)
+      end
+    end
+  end
 end

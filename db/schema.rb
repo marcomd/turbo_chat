@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_15_221102) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_11_154828) do
   create_table "ai_chats", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_15_221102) do
     t.text "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "excluded", default: false
     t.index ["ai_chat_id"], name: "index_ai_messages_on_ai_chat_id"
   end
 
