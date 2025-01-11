@@ -155,34 +155,6 @@ RSpec.describe "AiChats", type: :request do
     end
   end
 
-  describe "POST /ask" do
-    let(:action) { -> { post "/ai/#{ai_chat.id}/ask", params: } }
-    let(:ai_chat) { create(:ai_chat, user:, title: "Title") }
-    let(:params) { { prompt: "Hello" } }
-
-    it_behaves_like 'a not logged user'
-
-    context 'when user is logged in' do
-      before do
-        login_as user
-      end
-
-      context 'when the prompt is blank' do
-        let(:params) { { prompt: "" } }
-
-        it 'does NOT enqueues a job' do
-          expect { action.call }.to_not have_enqueued_job(CreateAiChatMessageJob)
-        end
-      end
-
-      context 'when the prompt is not blank' do
-        it 'enqueues a job' do
-          expect { action.call }.to have_enqueued_job(CreateAiChatMessageJob)
-        end
-      end
-    end
-  end
-
   describe "DELETE /destroy" do
     let(:action) { -> { delete "/ai/#{ai_chat.id}" } }
     let!(:ai_chat) { create(:ai_chat, user:) }

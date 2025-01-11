@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :ai_chats, path: "ai" do
-    member do
-      post :ask
-    end
+    resources :ai_messages, only: [ :create ], path: "messages"
   end
 end
