@@ -132,7 +132,7 @@ describe CreateAiChatMessageService, type: :service do
       expect(Turbo::StreamsChannel).to receive(:broadcast_append_to).with([ ai_chat, 'ai_messages' ],
                                                                          target: "ai_chat_#{ai_chat.id}_messages",
                                                                          partial: 'ai_messages/ai_message',
-                                                                         locals: { ai_chat: ai_chat, ai_message: })
+                                                                         locals: { ai_chat: ai_chat, ai_message:, is_new: true })
       service.send(:add_ai_message, ai_message: ai_message)
     end
   end
