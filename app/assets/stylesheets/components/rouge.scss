@@ -1,0 +1,152 @@
+:root {
+  --rouge-color-text: #fbf1c7;
+  --rouge-color-background: #282828;
+  --rouge-color-error: #fb4934;
+  --rouge-color-comment: #928374;
+  --rouge-color-keyword: #fb4934;
+  --rouge-color-constant: #d3869b;
+  --rouge-color-type: #fabd2f;
+  --rouge-color-decorator: #fe8019;
+  --rouge-color-string: #b8bb26;
+  --rouge-color-name: #8ec07c;
+  --rouge-color-number: #d3869b;
+  --rouge-color-special: #83a598;
+}
+
+pre.highlight {
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--border-radius);
+  color: var(--rouge-color-text);
+  background-color: var(--rouge-color-background);
+}
+
+.highlight table td {
+  padding: 5px;
+}
+
+.highlight table pre {
+  margin: 0;
+}
+
+.highlight .w {
+  color: var(--rouge-color-text);
+  background-color: var(--rouge-color-background);
+}
+
+.highlight .err {
+  color: var(--rouge-color-error);
+  background-color: var(--rouge-color-background);
+  font-weight: bold;
+}
+
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: var(--rouge-color-comment);
+  font-style: italic;
+}
+
+.highlight .cp {
+  color: var(--rouge-color-name);
+}
+
+.highlight .nt {
+  color: var(--rouge-color-error);
+}
+
+.highlight .o, .highlight .ow {
+  color: var(--rouge-color-text);
+}
+
+.highlight .p, .highlight .pi {
+  color: var(--rouge-color-text);
+}
+
+.highlight .gi {
+  color: var(--rouge-color-string);
+  background-color: var(--rouge-color-background);
+}
+
+.highlight .gd {
+  color: var(--rouge-color-error);
+  background-color: var(--rouge-color-background);
+}
+
+.highlight .gh {
+  color: var(--rouge-color-string);
+  font-weight: bold;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.highlight .gs {
+  font-weight: bold;
+}
+
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: var(--rouge-color-keyword);
+}
+
+.highlight .kc {
+  color: var(--rouge-color-constant);
+}
+
+.highlight .kt {
+  color: var(--rouge-color-type);
+}
+
+.highlight .kd {
+  color: var(--rouge-color-decorator);
+}
+
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: var(--rouge-color-string);
+  font-style: italic;
+}
+
+.highlight .si {
+  color: var(--rouge-color-string);
+  font-style: italic;
+}
+
+.highlight .sr {
+  color: var(--rouge-color-string);
+  font-style: italic;
+}
+
+.highlight .sa {
+  color: var(--rouge-color-error);
+}
+
+.highlight .se {
+  color: var(--rouge-color-decorator);
+}
+
+.highlight .nn {
+  color: var(--rouge-color-name);
+}
+
+.highlight .nc {
+  color: var(--rouge-color-name);
+}
+
+.highlight .no {
+  color: var(--rouge-color-constant);
+}
+
+.highlight .na {
+  color: var(--rouge-color-string);
+}
+
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: var(--rouge-color-number);
+}
+
+.highlight .ss {
+  color: var(--rouge-color-special);
+}

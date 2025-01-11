@@ -28,6 +28,15 @@ module AiChats
                                                 locals: { ai_chat: ai_chat, ai_message:, is_new: true })
     end
 
+    # It updates the AI message with the given object
+    # The turbo frame to update "ai_message_#{ai_message.id}_answer"
+    def update_ai_message(ai_message:)
+      Turbo::StreamsChannel.broadcast_replace_to([ ai_chat, "ai_messages" ],
+                                                 target: "ai_chat--message_#{ai_message.id}",
+                                                 partial: "ai_messages/ai_message",
+                                                 locals: { ai_chat: ai_chat, ai_message: })
+    end
+
     # It updates the AI message answer with the given chunk
     # The turbo frame to update "ai_message_#{ai_message.id}_answer"
     def update_ai_message_answer(ai_message_id:, answer_chunk:)

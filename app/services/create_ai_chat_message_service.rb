@@ -66,9 +66,17 @@ class CreateAiChatMessageService
       answer_chunks << answer_chunk
       update_ai_message_answer(ai_message_id: ai_message.id, answer_chunk:)
       sleep 0.01 # Higher values -> slower writing
+
+      # Every n chunks, update the message because we need to format the answer
+      if answer_chunks.size % 50 == 0
+        ai_message.update(answer: answer_chunks.join)
+        update_ai_message(ai_message:)
+        sleep 0.05
+      end
     end
 
     ai_message.update(answer: answer_chunks.join)
+    update_ai_message(ai_message:)
 
     ai_message
   rescue StandardError => e

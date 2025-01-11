@@ -9,7 +9,7 @@
     <span class="ai_chat--text">
       <!-- This section below can be updated from the data stream-->
       <%= turbo_frame_tag "ai_message_#{ai_message.id}_answer" do %>
-        <%= ai_message&.answer %>
+        <%= markdown(ai_message&.answer) %>
       <% end %>
     </span>
   </div>
