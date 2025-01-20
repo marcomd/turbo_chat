@@ -47,7 +47,7 @@ class CreateAiChatMessageService
     errors.add(:prompt, "is required") if prompt.blank?
 
     if errors.any?
-      # notify_error
+      notify_error(message: errors.full_messages.to_sentence)
       return
     end
 
