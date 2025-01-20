@@ -38,7 +38,7 @@ class AiChatsController < PrivateController
 
   # POST /ai/:id/ask
   def ask
-    return if ask_params[:prompt].blank?
+    return(head :no_content) if ask_params[:prompt].blank?
 
     CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ask_params[:prompt], @ai_chat.id)
   end
