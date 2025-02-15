@@ -43,7 +43,7 @@ Navigate to http://localhost:5100
 
 ## Summary
 
-In this first part the application is set up with the basic structure: 
+With reference to the tutorial, this list shows how progression is handled: 
 
 - Part 1
   - authentication
@@ -59,3 +59,8 @@ In this first part the application is set up with the basic structure:
   - Deleting chats
   - AI answer returned by streaming
   - Error notification
+- Part 4
+  - Refactoring by adding the AiMessages controller
+  - Exclude, restore or delete permanently a message
+  - Press Enter to submit the form
+  - Customize the turbo progress bar
