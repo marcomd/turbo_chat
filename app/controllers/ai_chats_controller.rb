@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AiChatsController < PrivateController
   before_action :set_ai_chat, only: [ :show, :destroy ]
 
