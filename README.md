@@ -55,3 +55,7 @@ In this first part the application is set up with the basic structure:
   - Added a UI
   - Prompt handled asynchronously in background
   - Propagating updates from server to clients
+- Part 3
+  - Deleting chats
+  - AI answer returned by streaming
+  - Error notification
