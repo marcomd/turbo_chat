@@ -50,7 +50,7 @@ gem "cssbundling-rails", "~> 1.4"
 
 gem "simple_form", "~> 5.3"
 
-gem "langchainrb", "~> 0.19.2"
+gem "langchainrb", "~> 0.19.4"
 
 gem "faraday", "~> 2.12"
 
