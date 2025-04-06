@@ -19,13 +19,17 @@ class AiChatsController < PrivateController
   # POST /ai/create
   def create
     @ai_chat = AiChat.build(user_id: current_user.id,
+                            chat_type: ai_message_params[:chat_type],
                             ai_model_name: ai_message_params[:ai_model_name].presence || CreateAiChatMessageService::DEFAULT_MODEL_NAME,
                             title: ai_message_params[:prompt].truncate(100))
 
     respond_to do |format|
       if @ai_chat.save
-        # We delay the start to allow the controller to finish before starting the job
-        CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        if @ai_chat.text?
+          CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        else
+          CreateAiImageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        end
 
         message = "Chat created, please wait for a response."
 
@@ -63,6 +67,6 @@ class AiChatsController < PrivateController
   end
 
   def ai_message_params
-    params.permit(:prompt, :ai_model_name)
+    params.permit(:prompt, :ai_model_name, :chat_type)
   end
 end

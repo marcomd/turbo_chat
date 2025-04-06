@@ -8,8 +8,11 @@ class AiMessagesController < PrivateController
   def create
     respond_to do |format|
       if ai_message_params[:prompt].present?
-        # Add a delay to avoid to show the spinner before the view is rendered
-        CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        if @ai_chat.text?
+          CreateAiChatMessageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        else
+          CreateAiImageJob.set(wait: 0.5.seconds).perform_later(ai_message_params[:prompt], @ai_chat.id)
+        end
 
         format.html { redirect_to(ai_chat_path(@ai_chat)) }
         format.json { render(:show, status: :created, location: @ai_chat) }
