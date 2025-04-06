@@ -15,3 +15,6 @@ application.register("bootstrap", BootstrapController)
 
 import SubmitOnEnterController from "./submit_on_enter_controller"
 application.register("submit-on-enter", SubmitOnEnterController)
+
+import ModelSelectorController from "./model_selector_controller"
+application.register("model-selector", ModelSelectorController)

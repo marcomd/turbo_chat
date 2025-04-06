@@ -12,5 +12,5 @@
 
     validates :ai_model_name, presence: true, inclusion: { in: SUPPORTED_AI_MODELS[:text] + SUPPORTED_AI_MODELS[:image] }
 
-    enum :chat_type, { text: 0, image: 1, new:2 }, prefix: :type
+    enum :chat_type, { text: 0, image: 1 }
   end

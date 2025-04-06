@@ -44,6 +44,10 @@
       <%= turbo_frame_tag "ai_message_#{ai_message.id}_answer" do %>
         <%= markdown(ai_message&.answer) %>
       <% end %>
+
+      <% if ai_message.generated_image.attached? %>
+        <%= image_tag ai_message.generated_image %>
+      <% end %>
     </div>
   </div>
 </div>

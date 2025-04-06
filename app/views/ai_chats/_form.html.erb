@@ -1,7 +1,7 @@
 <form class="ai_chat--form"
       action="<%= ai_chat.new_record? ? ai_chats_path : ai_chat_ai_messages_path(ai_chat) %>"
       <%= ai_chat.new_record? ? 'data-turbo-frame=_top' : '' %>
-      data-controller="generic-form" data-action="turbo:submit-end->generic-form#reset"
+      data-controller="generic-form model-selector" data-action="turbo:submit-end->generic-form#reset"
       method="POST">
 
   <div class="ai_chat--form-container">
@@ -9,7 +9,38 @@
 
     <% if ai_chat.new_record? %>
       <div class="form__group ai_chat--model-container">
-        <%= select_tag :ai_model_name, options_for_select(AiChat::SUPPORTED_AI_MODELS, nil), include_blank: "Select the AI model", class: 'form__input' %>
+        <%= select_tag :ai_model_name,
+                       options_for_select(AiChat::SUPPORTED_AI_MODELS[:text], nil),
+                       { include_blank: "Select the AI model",
+                         class: 'form__input',
+                         data: { 'model-selector-target': 'modelSelect' }
+                       } %>
+
+        <template data-model-selector-target="textModels">
+          <%= options_for_select(AiChat::SUPPORTED_AI_MODELS[:text], nil) %>
+        </template>
+
+        <template data-model-selector-target="imageModels">
+          <%= options_for_select(AiChat::SUPPORTED_AI_MODELS[:image], nil) %>
+        </template>
+      </div>
+
+      <div class="form__group">
+        <div class="chat-type-toggle">
+          <%= radio_button_tag :chat_type, 'text', true,
+                               class: 'btn-check',
+                               data: { action: 'model-selector#toggleModels' } %>
+          <%= label_tag 'chat_type_text', 'Text Response', class: 'btn btn-outline' do %>
+            <i class="bi bi-chat-text"></i>
+          <% end %>
+
+          <%= radio_button_tag :chat_type, 'image', false,
+                               class: 'btn-check',
+                               data: { action: 'model-selector#toggleModels' } %>
+          <%= label_tag 'chat_type_image', 'Generate Image', class: 'btn btn-outline' do %>
+            <i class="bi bi-image"></i>
+          <% end %>
+        </div>
       </div>
     <% end %>
 
