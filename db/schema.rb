@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_11_154828) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_06_211011) do
   create_table "ai_chats", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title"
     t.string "ai_model_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "chat_type", limit: 1, default: 0
     t.index ["user_id"], name: "index_ai_chats_on_user_id"
   end
 

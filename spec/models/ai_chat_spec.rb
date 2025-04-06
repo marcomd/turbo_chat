@@ -14,8 +14,11 @@ RSpec.describe AiChat, type: :model do
 
   describe 'constants' do
     it 'has a SUPPORTED_AI_MODELS constant' do
-      expect(described_class::SUPPORTED_AI_MODELS).to be_a(Array)
-      expect(described_class::SUPPORTED_AI_MODELS).to include('llama3.2')
+      expect(described_class::SUPPORTED_AI_MODELS).to be_a(Hash)
+      expect(described_class::SUPPORTED_AI_MODELS).to have_key(:text)
+      expect(described_class::SUPPORTED_AI_MODELS[:text]).to be_a(Array)
+      expect(described_class::SUPPORTED_AI_MODELS).to have_key(:image)
+      expect(described_class::SUPPORTED_AI_MODELS[:image]).to be_a(Array)
     end
   end
 end
