@@ -64,3 +64,8 @@ With reference to the tutorial, this list shows how progression is handled:
   - Exclude, restore or delete permanently a message
   - Press Enter to submit the form
   - Customize the turbo progress bar
+- Part 5
+  - Now AiChat can generate two types of content: text or images
+  - Added Image storage with active storage and AiMessage could have one image
+  - Added an internal service to use an external service for image generation
+  - Updated UI to manage the two types of content
