@@ -120,6 +120,11 @@ RSpec.describe "AiChats", type: :request do
         login_as user
       end
 
+      it 'returns http success' do
+        action.call
+        expect(response).to have_http_status(:success)
+      end
+
       it 'creates a new chat' do
         expect { action.call }.to change { AiChat.count }.by(1)
       end
